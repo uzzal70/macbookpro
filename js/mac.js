@@ -1,93 +1,113 @@
 // Memory cost
 function memoryCost(memoryId)
 {
-    const lowestCost = 0;
-    const heigestCost = 180;
-    const memoryProduct = document.getElementById('extra-memory-cost');
+    const memoryProduct = document.getElementById('memory-cost');
     if (memoryId > 0) {
-        memoryProduct.innerText = parseInt(heigestCost);
+        memoryProduct.innerText = parseInt(memoryId);
     }
     else {
-        memoryProduct.innerText = parseInt(lowestCost);
+        memoryProduct.innerText = parseInt(memoryId);
     }
+    totalCalculate();
 }
 // Storage cost 
 function storageCost(storageId)
 {
-    const lowBudget = 0;
-    const mediumBudget = 100;
-    const heigestBudget = 180;
-    const storageProduct = document.getElementById('extra-storage-cost');
+    const storageProduct = document.getElementById('storage-cost');
     if (storageId > 100) {
-        storageProduct.innerText = parseInt(heigestBudget);
+        storageProduct.innerText = parseInt(storageId);
     }
     else if (storageId > 0) {
-        storageProduct.innerText = parseInt(mediumBudget);
+        storageProduct.innerText = parseInt(storageId);
     }
     else {
-        storageProduct.innerText = parseInt(lowBudget);
+        storageProduct.innerText = parseInt(storageId);
     }
+    totalCalculate();
 }
 
 // Delivery cost 
 function deliveryCost(deliveryId)
 {
-    const slowDelivery = 0;
-    const fastDelivery = 20;
-    const memoryProduct = document.getElementById('delivery-charge');
+    const deliveryProduct = document.getElementById('delivery-cost');
     if (deliveryId > 0) {
-        memoryProduct.innerText = parseInt(fastDelivery);
+        deliveryProduct.innerText = parseInt(deliveryId);
     }
     else {
-        memoryProduct.innerText = parseInt(slowDelivery);
+        deliveryProduct.innerText = parseInt(deliveryId);
     }
+    totalCalculate();
 }
 
+function getVelue(product)
+{
+    const productCost = document.getElementById(product + '-cost').innerText;
+    const prouductPrice = parseInt(productCost);
+    return prouductPrice;
+}
+
+function totalCalculate()
+{
+    const memoryPrice = getVelue('memory');
+    const storagePrice = getVelue('storage');
+    const deliveryCost = getVelue('delivery');
+    const totalBestPrice = document.getElementById('best-price');
+    const totalText = totalBestPrice.innerText;
+    const bestPrice = parseInt(totalText);
+    const totalPrice = memoryPrice + storagePrice + deliveryCost + bestPrice;
+    const total = document.getElementById('total-price');
+    total.innerText = totalPrice;
+    // Last total cost
+    const totalField = document.getElementById('total-cost');
+    totalField.innerText = totalPrice;
+
+}
+// 20% Discount
+function discountTotal()
+{
+    const matchCode = document.getElementById('cupon-code');
+    if (matchCode.value == 'stevekaku') {
+        const TotalPriceText = document.getElementById('total-price');
+        const TotalPrice = parseFloat(TotalPriceText.innerText)
+        const discount = TotalPrice / 5;
+        const discountedTotal = TotalPrice - discount;
+        document.getElementById('total-cost').innerText = discountedTotal;
+        matchCode.value = '';
+    }
+}
 // Memory cost buy Product
 document.getElementById('lowest-cost').addEventListener('click', function ()
 {
-    const lowestCost = 0;
-    memoryCost(lowestCost);
-    // const lowestCost = 0;
-    // const bestProduct = document.getElementById('extra-memory-cost');
-    // bestProduct.innerText = parseInt(lowestCost);
-})
-document.getElementById('high-cost').addEventListener('click', function ()
+    memoryCost(0);
+});
+document.getElementById('heigest-cost').addEventListener('click', function ()
 {
-    const heigestCost = 180;
-    memoryCost(heigestCost);
-    // const highCost = 180;
-    // const bestProduct = document.getElementById('extra-memory-cost');
-    // bestProduct.innerText = parseInt(highCost);
-})
-
+    memoryCost(180);
+});
 // Storage cost buy Product
 document.getElementById('low-budget').addEventListener('click', function ()
 {
-    const lowBudget = 0;
-    storageCost(lowBudget);
-})
+    storageCost(0);
+});
 document.getElementById('medium-budget').addEventListener('click', function ()
 {
-    const mediumBudget = 100;
-    storageCost(mediumBudget);
-})
+    storageCost(100);
+});
 document.getElementById('heigest-budget').addEventListener('click', function ()
 {
-    const heigestBudget = 180;
-    storageCost(heigestBudget);
-})
+    storageCost(180);
+});
 
 // Delivery cost
 document.getElementById('slow-delivery').addEventListener('click', function ()
 {
-    const slowDelivery = 0;
-    deliveryCost(slowDelivery);
-})
+    deliveryCost(0);
+});
 document.getElementById('fast-delivery').addEventListener('click', function ()
 {
-    const fastDelivery = 20;
-    deliveryCost(fastDelivery);
-})
-
-
+    deliveryCost(20);
+});
+document.getElementById('apply-btn').addEventListener('click', function ()
+{
+    discountTotal();
+});
