@@ -74,6 +74,9 @@ function discountTotal()
         document.getElementById('total-cost').innerText = discountedTotal;
         matchCode.value = '';
     }
+    else {
+        alert('sorry ! Please correct');
+    }
 }
 // Memory cost buy Product
 document.getElementById('lowest-cost').addEventListener('click', function ()
